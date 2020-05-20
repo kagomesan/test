@@ -3,20 +3,16 @@
 use strict;
 use warnings;
 
-our @str;
+our @list;
 
 while(<*.csv>){
 	open(IN,$_);
-	while(<IN>){
-	chomp($_);
-	my @item = split ( /,/,$_);
-	push @str, [$item[0],$item[1]];
-	}
+	@list = <IN>;
+	close(IN);
 }
 
-@str = sort{$a->[0] cmp $b->[0]} @str;
+@list = sort { (split(/\,/,$a))[0] cmp (split(/\,/,$b))[0] } @list;
 
-foreach my $ref (@str) {
-  print "@$ref\n";
+for (my $i=0 ; $i<=$#list ; $i++){
+	print "$list[$i]" ;
 }
-
